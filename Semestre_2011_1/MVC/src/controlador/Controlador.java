@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.Point;
 import javax.swing.SwingUtilities;
+
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
 
@@ -15,24 +17,25 @@ public class Controlador {
 	
 	private Modelo modelo;
 	private Vista vista;
-	private Figura seleccionada;
+	private int estados = 0;
 	
 	public Controlador(Modelo modelo, Vista vista){
 		this.modelo=modelo;
 		this.vista=vista;
-		seleccionada=null;
 	}
 	
-	public Figura obtenerFigura(Point posicion){
+	public void verificarFigura(Point posicion){
 		ListIterator<Figura> it=modelo.getListado().listIterator();
 	    while (it.hasNext()) {
 	    	Figura tmp=it.next();
 	    		if(tmp.dentroFigura(posicion)){
-	    			tmp.setSeleccionada(true);
-	    			return tmp;
+	    			cambiarFigura(tmp);
+	    			//TODO cambiar esta funcion para que cambie los atributos de las figuras
+	    			
+	    			
 	    		}
 		    }
-	    return null;
+	    
 	}
 
 	public void cambiarPosicion(Figura f, Point p){
@@ -47,36 +50,39 @@ public class Controlador {
 		modelo.anyadirFigura(f);
 	}
 	
-	public Figura getFiguraEn(Point p){
+	public boolean getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
 	}
-	
 	public void eVmousePressed(MouseEvent ev) {
 		if(SwingUtilities.isLeftMouseButton(ev)){ 			//Click boton izquierdo selecciona figura
-			seleccionada=this.getFiguraEn(ev.getPoint());
+			//System.out.print("boton izquierdo");
+			this.verificarFigura(ev.getPoint());
 		}else if(SwingUtilities.isRightMouseButton(ev)){		//click boton izquierdo añade figura tipo cuadrado
-			this.anyadirFigura(new Cuadrado(ev.getPoint(),40));			
+			//System.out.print("boton derecho");
+			this.anyadirFigura(new Cuadrado(ev.getPoint()));			
 		}else if(SwingUtilities.isMiddleMouseButton(ev))//click boton medio añade figura tipo circulo
-		{
-			this.anyadirFigura(new Circulo(ev.getPoint(),40));
+		{   //System.out.print("boton del medio");
+			this.anyadirFigura(new Circulo(ev.getPoint(),40,String.valueOf(estados)));
+			estados++;
 		}
+		
 		vista.repaint();		
 	}
 	
 	public void eVmouseDragged(MouseEvent ev) {
-		if(seleccionada!=null){
 			//El movimiento puede ser mas fluido recalculando el pto
-			this.cambiarPosicion(seleccionada, ev.getPoint());
 			vista.repaint();
 		}
-	}
+	
 
 	public void eVmouseReleased (MouseEvent ev) {
 		vista.repaint();
-		if(seleccionada!=null){
-			seleccionada.setSeleccionada(false);
-			seleccionada=null;
 		}
+	public void cambiarFigura(Figura a)
+	{
+		a.cambiarFigura();
+		vista.repaint();
 	}
-
 }
+
+

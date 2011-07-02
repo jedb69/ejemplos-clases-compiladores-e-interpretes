@@ -23,13 +23,12 @@ public class Modelo {
 		listaFiguras.add(f);
 	}
 	
-	public Figura getFiguraEn(Point p){
+	public boolean getFiguraEn(Point p){
 		for (Figura elemento : getListado()) {
 			if(elemento.dentroFigura(p)){
-				elemento.seleccionada=true;
-				return elemento;				
+				return true;				
 			}
 		}
-		return null;
+		return false;
 	}
 }

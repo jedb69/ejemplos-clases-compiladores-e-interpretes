@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import vista.Vista;
@@ -19,6 +20,9 @@ public class Figuras {
 	public static void main(String[] args) {
 		try{
 			final JFrame frame = new JFrame();
+
+			JTextField text =  new JTextField();
+			frame.add(text);
 			frame.setTitle("Ejemplo Modelo Vista Controlador (MVC) Compíladores e Interpretes UNET");
 			//Set the window initial Size & default close operation
 			frame.setVisible(true);
@@ -31,7 +35,7 @@ public class Figuras {
 		    Container guiobjects = frame.getContentPane();
 		    guiobjects.setLayout(new BorderLayout());
 			Modelo modelo = new Modelo();
-			Vista vista = new Vista(new Dimension(1000,800),modelo);
+			Vista vista = new Vista(new Dimension(600,400),modelo);
 			final Controlador controlador = new Controlador(modelo,vista);
 			vista.controlador=controlador; //Lo registro para su uso, deberia ser un metodo pero por simplificacion
 			JScrollPane ModelScroll = new JScrollPane(controlador.getVista(), ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

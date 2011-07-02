@@ -5,37 +5,32 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Cuadrado extends Figura {
-
-	private int ancho;
-	public Cuadrado(Point posicion, int ancho){
-		this.posicion=posicion;
-		this.ancho=ancho;
-		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
-	}
 	
-	public void setAncho(int ancho){
-		this.ancho=ancho;
-	}
-	public int getAncho(){
-		return ancho;
+	//se cambian el ancho y el alto a valores constantes
+	public Cuadrado(Point posicion){
+		this.posicion=posicion; //Deberia estar en el constructor pero por simplicidad
 	}
 	
 	@Override
 	//Muy rudimentario y solo a modo demostrativo, para uso serio debe ser mejorada
 	public boolean dentroFigura(Point p) {
-		int difX=Math.abs(p.x-(posicion.x+(ancho/2)));
-		int difY=Math.abs(p.y-(posicion.y+(ancho/2)));
-		return ( (difX<ancho/2) && (difY<ancho/2));   
+		//actualizado
+		boolean ancho = false, alto = false;
+		if(p.x>posicion.x && p.x < posicion.x+130)
+		{
+			ancho = true;
+		}
+		if(p.y>posicion.y && p.y < posicion.y+40)
+		{
+			alto = true;
+		}
+		return ( ancho && alto);   
 	}
 	
 	@Override
 	public void dibujar(Graphics g)
 	{
-		g.setColor(Color.BLUE);
-		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho());
-		if(this.getSeleccionada()){
-			g.setColor(Color.RED);
-			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);
-		}
+		g.setColor(Color.BLACK);
+		g.drawRect(this.getX(), this.getY(), 130, 25);
 	}	
 }
