@@ -1,9 +1,12 @@
 package vista;
-
+import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,6 +14,7 @@ import java.awt.event.MouseMotionListener;
 import modelo.Modelo;
 import modelo.Figura;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 import controlador.Controlador;
@@ -19,6 +23,9 @@ import controlador.Controlador;
 public class Vista extends JPanel {
 	static final long serialVersionUID = 0L;
 	private Modelo modelo;
+	JTextField text = new JTextField();
+	
+	
 	public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
 	
 	public Vista(Dimension size, Modelo modelo){
@@ -30,6 +37,7 @@ public class Vista extends JPanel {
 		setFocusable(true);
 
 		//Mejorable al 1000% solo por simplificacion realizado de esta forma
+		
 		MouseController mouseControl = new MouseController() {
 			public void mouseClicked(MouseEvent event) {}
 			public void mouseEntered(MouseEvent event) {}
@@ -42,6 +50,8 @@ public class Vista extends JPanel {
 			public void mouseDragged(MouseEvent event) {
 				eVmouseDragged(event);	}
 		};
+		text.setColumns(2);
+		this.add(text);
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);
 	}
@@ -50,18 +60,22 @@ public class Vista extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		pintarTodo(g2);
+		System.out.println("pintarComponent");
 	}
 	
 	private void pintarTodo(Graphics2D g){
 		for (Figura elemento : modelo.getListado()) {
 			elemento.dibujar(g);
+			System.out.println("pintarTodo");
 		}
 	}
 
 	public void eVmousePressed(MouseEvent ev) {
 		if(controlador!=null)
 		{
+			//System.out.print("presiono el boton");
 			controlador.eVmousePressed(ev);
+			System.out.println("eVmousePressed");
 		}
 	}
 	
@@ -69,14 +83,16 @@ public class Vista extends JPanel {
 		if(controlador!=null)
 		{
 			controlador.eVmouseDragged(ev);
+			System.out.println("eVmouseDragged");
 		}
 	}
 	
 	public void eVmouseReleased (MouseEvent ev) {
 		if(controlador!=null)
-		{
-			controlador.eVmouseReleased(ev);
-		}
+		{	
+			controlador.eVmouseReleased(ev,text.getText());
+			System.out.println("eVmouseReleased");
+		}else{System.out.println("eVmousePressed");}
 	}
 	
 }
@@ -85,6 +101,7 @@ public class Vista extends JPanel {
 /**************************************************
 * SOLO para ahorrar espacio y simplificar cosas
 **************************************************/
+
 class MouseController implements MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent event) {}
 	public void mouseEntered(MouseEvent event) {}

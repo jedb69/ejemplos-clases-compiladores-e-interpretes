@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.Point;
 import javax.swing.SwingUtilities;
+
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
 
@@ -15,24 +17,49 @@ public class Controlador {
 	
 	private Modelo modelo;
 	private Vista vista;
-	private Figura seleccionada;
-	
+	private int estados = 0;
+	private Point rightPressed;
+	private boolean a=false,b=false;
+	public void setRightpressed(Point XY)
+	{
+		this.rightPressed = XY;
+	}
+	public Point getRightpressed()
+	{
+		return this.rightPressed;
+	}
 	public Controlador(Modelo modelo, Vista vista){
 		this.modelo=modelo;
 		this.vista=vista;
-		seleccionada=null;
 	}
 	
-	public Figura obtenerFigura(Point posicion){
+	public boolean verificarFigura(Point posicion){
 		ListIterator<Figura> it=modelo.getListado().listIterator();
 	    while (it.hasNext()) {
 	    	Figura tmp=it.next();
 	    		if(tmp.dentroFigura(posicion)){
-	    			tmp.setSeleccionada(true);
-	    			return tmp;
+	    			cambiarFigura(tmp);
+	    			return true;   			
+	    			
 	    		}
 		    }
-	    return null;
+	    return false; // quiere decir que no esta en una figura
+	}
+	public boolean verificarFigura(Point INIT,Point END){ //polimorfismo para verificar el inicio y final de las lineas
+		ListIterator<Figura> it=modelo.getListado().listIterator();
+	    while (it.hasNext()) {
+	    	Figura tmp=it.next();
+	    		if(tmp.dentroFigura(INIT)){
+	    			this.a = true; 	
+	    			System.out.println("El inicio si");
+	    		}
+	    		if(tmp.dentroFigura(END)){
+	    			this.b = true;
+	    			System.out.println("el final si");
+	    			
+	    		}
+		    }
+	    return a && b; 
 	}
 
 	public void cambiarPosicion(Figura f, Point p){
@@ -47,36 +74,51 @@ public class Controlador {
 		modelo.anyadirFigura(f);
 	}
 	
-	public Figura getFiguraEn(Point p){
+	public boolean getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
 	}
-	
 	public void eVmousePressed(MouseEvent ev) {
 		if(SwingUtilities.isLeftMouseButton(ev)){ 			//Click boton izquierdo selecciona figura
-			seleccionada=this.getFiguraEn(ev.getPoint());
-		}else if(SwingUtilities.isRightMouseButton(ev)){		//click boton izquierdo añade figura tipo cuadrado
-			this.anyadirFigura(new Cuadrado(ev.getPoint(),40));			
+			
+			this.verificarFigura(ev.getPoint());			
+			
+		}else if(SwingUtilities.isRightMouseButton(ev)){//click boton parece que empezara a hacer una linea
+
+			this.setRightpressed(ev.getPoint());
+			
 		}else if(SwingUtilities.isMiddleMouseButton(ev))//click boton medio añade figura tipo circulo
-		{
-			this.anyadirFigura(new Circulo(ev.getPoint(),40));
+		{   
+			this.anyadirFigura(new Circulo(ev.getPoint(),40,String.valueOf(estados)));
+			estados++;
 		}
+		
 		vista.repaint();		
 	}
 	
 	public void eVmouseDragged(MouseEvent ev) {
-		if(seleccionada!=null){
 			//El movimiento puede ser mas fluido recalculando el pto
-			this.cambiarPosicion(seleccionada, ev.getPoint());
-			vista.repaint();
+			
 		}
-	}
+	
 
-	public void eVmouseReleased (MouseEvent ev) {
+	public void eVmouseReleased (MouseEvent ev, String Letra) {
+		
+		if(SwingUtilities.isRightMouseButton(ev)){		//Solto el boton izquierdo, termina la linea
+			if(this.verificarFigura(this.getRightpressed(),ev.getPoint()))
+				{ //la linea comienza y termina en un circulo
+				this.anyadirFigura(new Cuadrado(this.getRightpressed(),ev.getPoint(),Letra));
+				this.a = this.b = false;
+				}
+			
+			
+		}
 		vista.repaint();
-		if(seleccionada!=null){
-			seleccionada.setSeleccionada(false);
-			seleccionada=null;
 		}
+	public void cambiarFigura(Figura a)
+	{
+		a.cambiarFigura();
+		vista.repaint();
 	}
-
 }
+
+

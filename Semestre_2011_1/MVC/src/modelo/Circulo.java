@@ -12,18 +12,23 @@ public class Circulo extends Figura {
 		this.radio=ancho;
 	}
 	
+	public void setTipo(int Tipo)
+	{
+		this.tipo = Tipo;
+	}
 	public int getRadio(){
 		return radio;
 	}
 	
-	public Circulo(Point posicion, int radio){
+	public Circulo(Point posicion, int radio,String numero){
 		this.posicion=posicion;
-		this.radio=radio;
-		this.seleccionada=false;  //Deberia estar en el constructor de figura pero por simplicidad
+		this.setLetra(numero);
+		this.radio=radio; //Deberia estar en el constructor de figura pero por simplicidad
 	}
 	
 	@Override
 	public boolean dentroFigura(Point p) {
+		
 		if ( radio >= Math.sqrt( Math.pow( p.x - posicion.x, 2 ) + Math.pow(p.y - posicion.y, 2 )))		
 				return true;
 		else
@@ -32,11 +37,21 @@ public class Circulo extends Figura {
 
 	@Override
 	public void dibujar(Graphics g) {
-		g.setColor(Color.ORANGE);
-		g.fillOval(this.getX(), this.getY(), this.getRadio(), this.getRadio());
-		if(this.getSeleccionada()){
-			g.setColor(Color.CYAN);
-			g.drawOval(this.getX()+7, this.getY()+7, this.getRadio()-20, this.getRadio()-20);
+		g.setColor(Color.BLACK);
+		g.drawOval(this.getX(), this.getY(), this.getRadio(), this.getRadio());
+		int a=17,b=24;
+		if(Integer.parseInt(this.getLetra())>9)
+		{
+			a=14;
+		}
+		g.drawString(String.valueOf(this.getLetra()), this.getX()+a,this.getY()+b);
+		if(this.tipo == 1)
+		{
+			g.drawOval(this.getX()+2, this.getY()+2, this.getRadio()-4, this.getRadio()-4);
+		}
+		if(this.tipo == 2)
+		{
+			g.drawString("---->", this.getX()-23,this.getY()+23);
 		}
 	}
 
