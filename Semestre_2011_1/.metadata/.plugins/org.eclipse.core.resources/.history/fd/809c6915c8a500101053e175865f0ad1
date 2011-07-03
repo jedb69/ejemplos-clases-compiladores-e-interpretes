@@ -1,0 +1,57 @@
+package modelo;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
+public class Cuadrado extends Figura {
+	private Point Init;
+	private Point End;
+	public void setInit(Point XY)
+	{
+		this.Init = XY;
+	}
+	public Point getInit()
+	{
+		return this.Init;
+	}
+	public Point getEnd()
+	{
+		return this.End;
+	}
+	public void setEnd(Point XY)
+	{
+		this.End = XY;
+	}
+	//se cambian el ancho y el alto a valores constantes
+	public Cuadrado(Point INIT, Point END){
+		this.Init = INIT;
+		this.End = END;
+	}
+	
+	@Override
+	//Muy rudimentario y solo a modo demostrativo, para uso serio debe ser mejorada
+	public boolean dentroFigura(Point p) {
+		//actualizado
+		boolean ancho = false, alto = false;
+		if(p.x>posicion.x && p.x < posicion.x+130)
+		{
+			ancho = true;
+		}
+		if(p.y>posicion.y && p.y < posicion.y+40)
+		{
+			alto = true;
+		}
+		return ( ancho && alto);   
+	}
+	
+	@Override
+	public void dibujar(Graphics g)
+	{
+		g.setColor(Color.BLACK);
+		System.out.println("entro");
+		System.out.println("x = "+this.getInit().x+" y= "+this.getInit().y);
+		System.out.println("x = "+this.getEnd().x+" y= "+this.getEnd().y);
+		g.drawLine(this.getInit().x,this.getInit().y,this.getEnd().x,this.getEnd().y);
+	}	
+}

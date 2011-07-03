@@ -1,0 +1,28 @@
+package modelo;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
+public class Cuadrado extends Figura {
+	
+	//se cambian el ancho y el alto a valores constantes
+	public Cuadrado(Point posicion){
+		this.posicion=posicion;
+		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
+	}
+	
+	@Override
+
+	
+	@Override
+	public void dibujar(Graphics g)
+	{
+		g.setColor(Color.BLACK);
+		g.drawRect(this.getX(), this.getY(), 130, 25);
+		if(this.getSeleccionada()){
+			g.setColor(Color.RED);
+			g.drawRect(this.getX(), this.getY(), 130,25);
+		}
+	}	
+}
