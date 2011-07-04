@@ -1,6 +1,8 @@
 package controlador;
 
 import java.awt.Point;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.SwingUtilities;
 
 import java.awt.event.KeyEvent;
@@ -51,11 +53,9 @@ public class Controlador {
 	    	Figura tmp=it.next();
 	    		if(tmp.dentroFigura(INIT)){
 	    			this.a = true; 	
-	    			System.out.println("El inicio si");
 	    		}
 	    		if(tmp.dentroFigura(END)){
 	    			this.b = true;
-	    			System.out.println("el final si");
 	    			
 	    		}
 		    }
@@ -105,8 +105,14 @@ public class Controlador {
 		
 		if(SwingUtilities.isRightMouseButton(ev)){		//Solto el boton izquierdo, termina la linea
 			if(this.verificarFigura(this.getRightpressed(),ev.getPoint()))
-				{ //la linea comienza y termina en un circulo
-				this.anyadirFigura(new Cuadrado(this.getRightpressed(),ev.getPoint(),Letra));
+				{ //la linea comienza y termina en un circulo				
+				 Pattern p = Pattern.compile("[a-z]");
+			        Matcher m = p.matcher(Letra);
+			        if ( m.find() ){ //validamos que haya una letra en el campo
+			        	this.anyadirFigura(new Cuadrado(this.getRightpressed(),ev.getPoint(),Letra));
+			        	}
+			        
+				
 				this.a = this.b = false;
 				}
 			

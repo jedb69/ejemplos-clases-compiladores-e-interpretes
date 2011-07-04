@@ -42,9 +42,6 @@ public class Cuadrado extends Figura {
 	public void dibujar(Graphics g)
 	{
 		g.setColor(Color.BLACK);
-		System.out.println("entro");
-		System.out.println("x = "+this.getInit().x+" y= "+this.getInit().y);
-		System.out.println("x = "+this.getEnd().x+" y= "+this.getEnd().y);
 		g.drawLine(this.getInit().x,this.getInit().y,this.getEnd().x,this.getEnd().y);
 		g.setColor(Color.RED);
 		g.drawString(this.getLetra(),(this.getEnd().x+this.getInit().x)/2,(this.getEnd().y+this.getInit().y)/2);

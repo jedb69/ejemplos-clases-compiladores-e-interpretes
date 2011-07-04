@@ -10,7 +10,7 @@ public abstract class Figura {
 	public abstract boolean dentroFigura(Point p);
 	public abstract void dibujar(Graphics g);	
 	public void cambiarFigura()
-	{	System.out.println(this.tipo);
+	{	
 		this.tipo++;
 		if(this.tipo>2)
 		{

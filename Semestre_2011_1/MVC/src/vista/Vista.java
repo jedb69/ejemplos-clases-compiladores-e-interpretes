@@ -31,7 +31,6 @@ public class Vista extends JPanel {
 	public Vista(Dimension size, Modelo modelo){
 		super();
 		this.modelo=modelo;
-		
 		setPreferredSize(size);
 		setBackground(Color.white);
 		setFocusable(true);
@@ -50,7 +49,7 @@ public class Vista extends JPanel {
 			public void mouseDragged(MouseEvent event) {
 				eVmouseDragged(event);	}
 		};
-		text.setColumns(2);
+		text.setColumns(1);
 		this.add(text);
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);
@@ -60,22 +59,18 @@ public class Vista extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		pintarTodo(g2);
-		System.out.println("pintarComponent");
 	}
 	
 	private void pintarTodo(Graphics2D g){
 		for (Figura elemento : modelo.getListado()) {
 			elemento.dibujar(g);
-			System.out.println("pintarTodo");
 		}
 	}
 
 	public void eVmousePressed(MouseEvent ev) {
 		if(controlador!=null)
 		{
-			//System.out.print("presiono el boton");
 			controlador.eVmousePressed(ev);
-			System.out.println("eVmousePressed");
 		}
 	}
 	
@@ -83,7 +78,6 @@ public class Vista extends JPanel {
 		if(controlador!=null)
 		{
 			controlador.eVmouseDragged(ev);
-			System.out.println("eVmouseDragged");
 		}
 	}
 	
@@ -91,8 +85,7 @@ public class Vista extends JPanel {
 		if(controlador!=null)
 		{	
 			controlador.eVmouseReleased(ev,text.getText());
-			System.out.println("eVmouseReleased");
-		}else{System.out.println("eVmousePressed");}
+		}
 	}
 	
 }
