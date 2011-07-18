@@ -1,0 +1,59 @@
+package Modelo;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
+public class Programa extends Figura{
+
+	private int radio;
+	
+	public void setRadio(int ancho){
+		this.radio=ancho;
+	}
+	
+	public int getRadio(){
+		return radio;
+	}
+	
+	public Programa(Point posicion, int radio){
+		this.posicion=posicion;
+		this.radio=radio;
+		this.seleccionada=false;
+		this.tipo = 3;
+		//Deberia estar en el constructor de figura pero por simplicidad
+	}
+	
+	@Override
+	public boolean dentroFigura(Point p) {
+		if (p.getX() > this.getX()-20 && p.getX() < this.getX()+20 )
+		{	if(p.getY() > this.getY()-20 && p.getX() < this.getX()+20)	
+			return true;
+		}
+		
+				return false;
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.drawLine(this.getX()-20,this.getY()+20,this.getX()+20,this.getY()+20);
+		g.drawLine(this.getX()-20, this.getY()+20, this.getX()-20, this.getY()-20);
+		g.drawLine(this.getX()+20, this.getY()+20, this.getX()+20, this.getY()-20);
+		g.drawOval(this.getX()-25, this.getY()-60, 50, 50);
+		//TODO cambiar los Strings a variables
+		g.drawString("C#", this.getX()-15, this.getY()+7);
+		g.drawString("comp", this.getX()-23, this.getY()-32);
+		if(this.getSeleccionada()){
+			g.setColor(Color.RED);
+			g.drawLine(this.getX()-20,this.getY()+20,this.getX()+20,this.getY()+20);
+			g.drawLine(this.getX()-20, this.getY()+20, this.getX()-20, this.getY()-20);
+			g.drawLine(this.getX()+20, this.getY()+20, this.getX()+20, this.getY()-20);
+			g.drawOval(this.getX()-25, this.getY()-60, 50, 50);
+			//TODO cambiar los Strings a variables
+			g.drawString("C#", this.getX()-15, this.getY()+7);
+			g.drawString("comp", this.getX()-23, this.getY()-32);
+		}
+	}
+
+}

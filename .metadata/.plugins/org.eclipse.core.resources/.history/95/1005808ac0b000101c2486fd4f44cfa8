@@ -1,0 +1,92 @@
+package Modelo;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+
+public class Compilador extends Figura{
+
+	//uniones
+	private Figura maquina = null;
+	private Figura izquierda = null;
+	private Figura derecha = null;
+	
+	//lenguajes
+	private String lengA = null;
+	private String lengB = null;
+	private String lengC = null;
+	
+	public Compilador(Point posicion, int radio,String Lenga,String Lengb,String Lengc){
+		this.posicion=posicion;
+		this.seleccionada=false;
+		this.tipo = 0;
+		this.lengA = Lenga;
+		this.lengB = Lengb;
+		this.lengC = Lengc;
+		//Deberia estar en el constructor de figura pero por simplicidad
+	}
+	
+	@Override
+	public boolean dentroFigura(Point p) {
+		if (p.getX() > this.getX()-60 && p.getX() < this.getX()+60 )
+		{	if(p.getY() > this.getY()-40 && p.getY() < this.getY()){	
+			return true;
+			}
+		}if (p.getX() > this.getX()-20 && p.getX() < this.getX()+20 )
+		{	if(p.getY() > this.getY()-40 && p.getY() < this.getY()+40){	
+			return true;
+			}
+		}
+		
+				return false;
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.drawLine(this.getX()-60,this.getY()-40, this.getX()+60, this.getY()-40);
+		g.drawLine(this.getX()-60,this.getY()-40, this.getX()-60,this.getY());
+		g.drawLine(this.getX()+60,this.getY()-40, this.getX()+60,this.getY());
+		g.drawLine(this.getX()-60, this.getY(), this.getX()-20, this.getY());
+		g.drawLine(this.getX()+20, this.getY(), this.getX()+60, this.getY());
+		g.drawLine(this.getX()-20, this.getY(), this.getX()-20, this.getY()+40);
+		g.drawLine(this.getX()+20, this.getY(), this.getX()+20, this.getY()+40);
+		g.drawLine(this.getX()-20, this.getY()+40, this.getX()+20, this.getY()+40);
+		g.drawString(this.lengA, this.getX()-56, this.getY()-15);
+		g.drawString(this.lengB,this.getX()+20,this.getY()-15);
+		g.drawString(this.lengC,this.getX()-18,this.getY()+35);
+		if(this.getSeleccionada()){
+			g.setColor(Color.RED);
+			g.drawLine(this.getX()-60,this.getY()-40, this.getX()+60, this.getY()-40);
+			g.drawLine(this.getX()-60,this.getY()-40, this.getX()-60,this.getY());
+			g.drawLine(this.getX()+60,this.getY()-40, this.getX()+60,this.getY());
+			g.drawLine(this.getX()-60, this.getY(), this.getX()-20, this.getY());
+			g.drawLine(this.getX()+20, this.getY(), this.getX()+60, this.getY());
+			g.drawLine(this.getX()-20, this.getY(), this.getX()-20, this.getY()+40);
+			g.drawLine(this.getX()+20, this.getY(), this.getX()+20, this.getY()+40);
+			g.drawLine(this.getX()-20, this.getY()+40, this.getX()+20, this.getY()+40);
+			g.drawString(this.lengA, this.getX()-56, this.getY()-15);
+			g.drawString(this.lengB,this.getX()+20,this.getY()-15);
+			g.drawString(this.lengC,this.getX()-18,this.getY()+35);
+		}
+	}
+
+	@Override
+	public boolean Union(Figura f,Point p,Point q) {
+		// TODO Auto-generated method stub
+		if(f.getTipo()==0)
+		{
+			f.setPosicion(p);
+		}
+		if(f.getTipo()==1 && q.getX()<this.getX() $$ q.getY()<this.getY())
+		{
+			//quiere poner el interprete en la izquierda
+			f.setPosicion(this.getX()-80,this.getY()-20);
+		}
+		return false;
+	}
+
+
+	
+
+}

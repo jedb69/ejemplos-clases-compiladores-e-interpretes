@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="modelo.Modelo"/>
+<fullyQualifiedTypeName name="vista.Vista"/>
+<fullyQualifiedTypeName name="controlador.Controlador"/>
+<fullyQualifiedTypeName name="Modelo.Compilador"/>
+<fullyQualifiedTypeName name="Modelo.Figura"/>
+<fullyQualifiedTypeName name="Modelo.Interprete"/>
+<fullyQualifiedTypeName name="Modelo.Maquina"/>
+<fullyQualifiedTypeName name="Modelo.Programa"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="javax.swing.JList"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.awt.FlowLayout"/>
+<fullyQualifiedTypeName name="java.lang.NegativeArraySizeException"/>
+<fullyQualifiedTypeName name="javax.swing.JLabel"/>
+<fullyQualifiedTypeName name="javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT"/>
+<fullyQualifiedTypeName name="Main.Figuras"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>
