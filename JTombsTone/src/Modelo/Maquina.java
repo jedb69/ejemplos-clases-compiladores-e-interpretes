@@ -51,12 +51,23 @@ public class Maquina extends Figura{
 	@Override
 	public boolean Union(Figura f, Point p, Point q) {
 		if(f.getTipo()==0)// es un compilador
-		{	
+		{	if(f.getlengC().equals(this.getlengA()))
+			{
 			f.setPosicion(this.getX(),this.getY()-60);
+			}else
+			{
+				f.setPosicion(p);
+			}
 		}
 		if(f.getTipo()==1) // es un interprete
 		{
+			if(f.getlengB().equals(this.getlengA()))
+			{
 			f.setPosicion(this.getX(),this.getY()-40);
+			}else
+			{
+				f.setPosicion(p);
+			}
 		}
 		if(f.getTipo() == 2) // es una maquina
 		{	if(!this.seleccionada){
@@ -64,7 +75,6 @@ public class Maquina extends Figura{
 		}
 		if(f.getTipo()==3) // es un programa
 		{
-			
 				f.setPosicion(p);
 		}
 		return false;

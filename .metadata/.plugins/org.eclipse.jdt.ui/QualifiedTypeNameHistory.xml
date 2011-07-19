@@ -8,15 +8,24 @@
 <fullyQualifiedTypeName name="Modelo.Interprete"/>
 <fullyQualifiedTypeName name="Modelo.Maquina"/>
 <fullyQualifiedTypeName name="Modelo.Programa"/>
-<fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="javax.swing.JList"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
 <fullyQualifiedTypeName name="java.lang.NegativeArraySizeException"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT"/>
-<fullyQualifiedTypeName name="Main.Figuras"/>
 <fullyQualifiedTypeName name="java.awt.Point"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="java.awt.Event"/>
+<fullyQualifiedTypeName name="java.awt.Button"/>
+<fullyQualifiedTypeName name="Vista.Vista"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseListener"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Vista.KeyController"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyListener"/>
+<fullyQualifiedTypeName name="java.awt.KeyEventDispatcher"/>
+<fullyQualifiedTypeName name="java.awt.KeyboardFocusManager"/>
+<fullyQualifiedTypeName name="Main.Figuras.MyDispatcher"/>
+<fullyQualifiedTypeName name="Main.Figuras"/>
 </qualifiedTypeNameHistroy>

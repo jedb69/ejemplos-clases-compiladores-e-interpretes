@@ -57,7 +57,13 @@ public class Interprete extends Figura{
 	public boolean Union(Figura f, Point p, Point q) {
 		if(f.getTipo()==0)// es un compilador
 		{	
+				if(f.getlengC().equals(this.getlengA()))
+				{
 				f.setPosicion(this.getX(),this.getY()-60);
+				}else
+				{
+					f.setPosicion(p);
+				}
 				
 		}
 		if(f.getTipo()==1) // es un interprete
@@ -67,11 +73,23 @@ public class Interprete extends Figura{
 		}
 		if(f.getTipo() == 2) // es una maquina
 		{	
+			if(f.getlengA().equals(this.getlengB()))
+			{
 			f.setPosicion(this.getX(),this.getY()+40);
+			}else
+			{
+				f.setPosicion(p);
+			}
 		}
 		if(f.getTipo()==3) // es un programa
 		{
+			if(f.getlengB().equals(this.getlengA()))
+			{
 			f.setPosicion(this.getX(),this.getY()-40);
+			}else
+			{
+				f.setPosicion(p);
+			}
 		}
 		return false;
 	}

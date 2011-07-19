@@ -20,6 +20,10 @@ public class Modelo {
 		}
 	return -1;
 	}
+	public void limpiar()
+	{	System.out.print("limpiar");
+		this.listaFiguras.clear();
+	}
 	public void changeFigure(int index, Figura f)
 	{
 		listaFiguras.remove(index);

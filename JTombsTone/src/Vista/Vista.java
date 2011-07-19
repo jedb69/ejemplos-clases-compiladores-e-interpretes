@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,12 +13,11 @@ import java.awt.event.MouseMotionListener;
 import Modelo.Modelo;
 import Modelo.Figura;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import Main.Figuras;
 import Controlador.Controlador;
 
 
-public class Vista extends JPanel {
+public class Vista extends JPanel  {
 	static final long serialVersionUID = 0L;
 	private Modelo modelo;
 	//jtextfield para obtener los valores de los textfields que estan en el otro frame
@@ -28,7 +29,6 @@ public class Vista extends JPanel {
 	public Vista(Dimension size, Modelo modelo){
 		super();
 		this.modelo=modelo;
-		
 		setPreferredSize(size);
 		setBackground(Color.white);
 		setFocusable(true);
@@ -46,10 +46,13 @@ public class Vista extends JPanel {
 			public void mouseDragged(MouseEvent event) {
 				eVmouseDragged(event);	}
 		};
+		
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);
 	}
-	
+	public boolean isFocusable(){ 
+		return true; 
+		} 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -83,7 +86,12 @@ public class Vista extends JPanel {
 			controlador.eVmouseReleased(ev);
 		}
 	}
-	
+	public void eVlimpiar()
+	{
+		this.controlador.eVlimpiar();
+	}
+
+
 }
 
 
@@ -99,3 +107,4 @@ class MouseController implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent event) {}
 	public void mouseMoved(MouseEvent event) {}
 }
+

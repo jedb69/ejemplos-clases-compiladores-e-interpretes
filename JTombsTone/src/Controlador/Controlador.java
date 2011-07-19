@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ListIterator;
 
 import Vista.Vista;
+import Main.Figuras;
 import Modelo.Figura;
 import Modelo.Interprete;
 import Modelo.Maquina;
@@ -19,6 +20,7 @@ public class Controlador {
 	private Vista vista;
 	private Figura seleccionada;
 	private Point before;
+	private Figuras fg;
 	
 	public Controlador(Modelo modelo, Vista vista){
 		this.modelo=modelo;
@@ -78,22 +80,50 @@ public class Controlador {
 				{
 					index = this.modelo.getIndex(ev.getPoint());
 					this.cambiarFigura(index,new Compilador(ev.getPoint(),lenga,lengb,lengc));
+					fg.lenguajea.setVisible(true);
+					fg.lenguajeb.setVisible(true);
+					fg.lenguajec.setVisible(true);
+					fg.lenguajea.setText("Leng. Fuente ");
+					fg.lenguajeb.setText("Leng. Objeto ");
+					fg.lenguajec.setText("Leng. Escrito");
+					fg.lenga.setVisible(true);
+					fg.lengb.setVisible(true);
+					fg.lengc.setVisible(true);
 				}
 				if(tipo == 1)
 				{
 					//vamos a hacer un Interprete
 					index = this.modelo.getIndex(ev.getPoint());
 					this.cambiarFigura(index,new Interprete(ev.getPoint(),lenga,lengb));
+					fg.lenguajea.setText("Leng. Fuente ");
+					fg.lenguajeb.setText("Leng. Escrito");
+					fg.lenguajec.setVisible(false);
+					fg.lenga.setVisible(true);
+					fg.lengb.setVisible(true);
+					fg.lengc.setVisible(false);
 				}if(tipo == 2)
 				{
 					//vamos a hacer una Maquina
 					index = this.modelo.getIndex(ev.getPoint());
 					this.cambiarFigura(index,new Maquina(ev.getPoint(),lenga));
+					fg.lenguajea.setText("Leng. Maquina");
+					fg.lenguajeb.setVisible(false);
+					fg.lenguajec.setVisible(false);
+					fg.lenga.setVisible(true);
+					fg.lengb.setVisible(false);
+					fg.lengc.setVisible(false);
 				}if(tipo == 3)
 				{
 					//vamos a hacer un Programa
 					index = this.modelo.getIndex(ev.getPoint());
 					this.cambiarFigura(index,new Programa(ev.getPoint(),lenga,lengb));
+					fg.lenguajea.setText("Nombre        ");
+					fg.lenguajeb.setText("Leng. Escrito");
+					fg.lenguajeb.setVisible(true);
+					fg.lenguajec.setVisible(false);
+					fg.lenga.setVisible(true);
+					fg.lengb.setVisible(true);
+					fg.lengc.setVisible(false);
 				}
 			}			
 		}
@@ -126,6 +156,11 @@ public class Controlador {
 			seleccionada.setSeleccionada(false);
 			seleccionada=null;
 		}
+	}
+	public void eVlimpiar()
+	{
+		this.modelo.limpiar();
+		vista.repaint();
 	}
 	
 
