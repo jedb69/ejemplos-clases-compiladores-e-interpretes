@@ -5,9 +5,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Interprete extends Figura{
-
-	private Figura arriba =  null;
-	private Figura abajo = null; 
 	
 	
 	public Interprete(Point posicion, String lenga, String lengb){

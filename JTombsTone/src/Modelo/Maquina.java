@@ -6,8 +6,6 @@ import java.awt.Point;
 
 public class Maquina extends Figura{
 
-	private Figura Arriba = null;
-	
 	
 	public Maquina(Point posicion, String lenga){
 		this.posicion=posicion;

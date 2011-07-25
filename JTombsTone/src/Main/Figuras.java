@@ -3,26 +3,27 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
+import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import Modelo.Figura;
 import Modelo.Modelo;
 import Vista.Vista;
 import Controlador.Controlador;
+import Controlador.Guardar;
 
 
 
@@ -35,13 +36,15 @@ public class Figuras implements ActionListener{
 	static JButton limpiar =  new JButton("Limpiar");
 	static JTextField nombre = new JTextField();
 	static JList lista = new JList();
-	static JScrollPane scroll = new JScrollPane();
+	static DefaultListModel list =  new DefaultListModel();
+	public static Vector<String> todo;
 	public static JTextField lenga = new JTextField("java");
 	public static JTextField lengb = new JTextField("C#");
 	public static JTextField lengc = new JTextField("php");
 	public static JLabel lenguajea = new JLabel("Leng. Fuente ");
 	public static JLabel lenguajeb = new JLabel("Leng. Objeto ");
 	public static JLabel lenguajec = new JLabel("Leng. Escrito");
+	public static JScrollPane scroll = new JScrollPane(lista);
 	static Modelo modelo = new Modelo();
 	static Vista vista = new Vista(new Dimension(600,400),modelo);
 	static Controlador controlador = new Controlador(modelo,vista);
@@ -51,34 +54,41 @@ public class Figuras implements ActionListener{
 		try{
 			
 			Figuras hola = new Figuras();
-			lista.setBounds(100, 100, 200,200);
-			scroll.setBounds(0, 0, 100, 200);
-			scroll.setViewportView(lista);
+			inicio.setLayout(null);
 			nombre.setColumns(15);
 			lenga.setColumns(17);
 			lengb.setColumns(17);
 			lengc.setColumns(17);
-			
-			guardar.setBounds(0, 0, 100, 60);
-			abrir.setBounds(0, 0, 100, 60);
-			nombre.setBounds(105, 122, 100, 60);
-			inicio.add(guardar);
+			nombre.setBounds(110, 5,170, 25);
 			inicio.add(nombre);
+			guardar.setBounds(5,5,100,25);
+			inicio.add(guardar);
+			
+			scroll.setBounds(5, 35, 275, 150);
 			inicio.add(scroll);
+			abrir.setBounds(5, 185, 84, 25);
 			inicio.add(abrir);
-			inicio.add(borrar);
+			
+			limpiar.setBounds(92,185,100,25);
 			inicio.add(limpiar);
 			
+			borrar.setBounds(195, 185, 84, 25);
+			inicio.add(borrar);
 			
 			
+			lenguajea.setBounds(5, 215, 100, 25);
 			inicio.add(lenguajea);
+			lenga.setBounds(110, 215, 170, 25);
 			inicio.add(lenga);
 			
+			lenguajeb.setBounds(5, 245, 100, 25);
 			inicio.add(lenguajeb);
+			lengb.setBounds(110, 245, 170, 25);
 			inicio.add(lengb);
 			
-			
+			lenguajec.setBounds(5, 275, 100, 25);
 			inicio.add(lenguajec);
+			lengc.setBounds(110, 275, 170, 25);
 			inicio.add(lengc);
 			
 			borrar.addActionListener(hola);
@@ -86,15 +96,13 @@ public class Figuras implements ActionListener{
 			guardar.addActionListener(hola);
 			limpiar.addActionListener(hola);
 		
-			inicio.setLayout(new FlowLayout());
 			JTextField text =  new JTextField();
 			frame.add(text);
-			frame.setTitle("Jtombstone");
+			frame.setTitle("Jtombstone 1.0 BETA");
 			inicio.setTitle("Herramientas");
 			//Set the window initial Size & default close operation
 			frame.setVisible(true);
 			inicio.setVisible(true);
-			inicio.setTitle("Guardar/abrir/nuevo");
 			Dimension fullscreen = Toolkit.getDefaultToolkit().getScreenSize();
 			fullscreen.width=fullscreen.width-400;
 			fullscreen.height=fullscreen.height-400;
@@ -111,32 +119,70 @@ public class Figuras implements ActionListener{
 			vista.controlador=controlador; //Lo registro para su uso, deberia ser un metodo pero por simplificacion
 			JScrollPane ModelScroll = new JScrollPane(controlador.getVista(), ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 			guiobjects.add(ModelScroll);
+			todo = vista.dbgetListado();
+			lista.setBounds(5, 5, 200,200);
+			int i = 0;
+			while(i<todo.size())
+			{	try {
+				list.addElement(todo.get(i));
+				i++;
+			} catch (Exception e) {
+				break;
+			}
+				
+			}
+			lista.setModel(list);
 			/*ModelScroll.repaint();
 			frame.repaint();*/
 			frame.pack();
 		}catch (RuntimeException e){
-			exitApplication();
+			System.out.println(e.toString());
 		}
 
 	}
 
 	public static void exitApplication() {
-		   System.out.println("Saliendo Adios...");
-		   System.exit(0);
+		  
         }
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Hola");
 		if( e.getSource() == guardar ){
             //TODO programar que se guarde  el diagrama que ya esta hecho y su validacion
+			vista.dbGuardar(this.nombre.getText());
+			todo = vista.dbgetListado();
+       		list.clear();
+       		int i = 0;
+       		while(i<todo.size())
+       		{	try {
+			list.addElement(todo.get(i));
+			i++;
+			} catch (Exception e11) {
+			break;
+			}}
+			
 			}
         if( e.getSource() == abrir ){
+        	System.out.print("abrir");
+        	vista.dbCargar(this.lista.getSelectedIndex());
             //TODO programar abrir el diagrama seleccionado en la lista
         	}
         if( e.getSource() == borrar){
-            //TODO programar el borrado del diagrama seleccionado en la lista
+           vista.dbBorrar(this.lista.getSelectedIndex());
+       		todo = vista.dbgetListado();
+       		list.clear();
+       		int i = 0;
+       		while(i<todo.size())
+       		{	try {
+			list.addElement(todo.get(i));
+			i++;
+			} catch (Exception e11) {
+			break;
+			}
+			
+		}
+		lista.setModel(list);
         	}
         if(e.getSource() == limpiar )
         	{

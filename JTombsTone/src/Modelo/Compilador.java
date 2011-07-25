@@ -6,10 +6,6 @@ import java.awt.Point;
 
 public class Compilador extends Figura{
 
-	//uniones
-	private Figura maquina = null;
-	private Figura izquierda = null;
-	private Figura derecha = null;
 	
 	public Compilador(Point posicion,String Lenga,String Lengb,String Lengc){
 		this.posicion=posicion;

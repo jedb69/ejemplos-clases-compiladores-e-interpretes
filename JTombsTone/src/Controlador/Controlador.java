@@ -4,6 +4,7 @@ import java.awt.Point;
 import javax.swing.SwingUtilities;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
+import java.util.Vector;
 
 import Vista.Vista;
 import Main.Figuras;
@@ -21,6 +22,8 @@ public class Controlador {
 	private Figura seleccionada;
 	private Point before;
 	private Figuras fg;
+	public int cont=0;
+	DBController controlador =  new DBController();
 	
 	public Controlador(Modelo modelo, Vista vista){
 		this.modelo=modelo;
@@ -55,20 +58,33 @@ public class Controlador {
 	{
 		modelo.changeFigure(indice, f);
 	}
+	public void dbCargar(int id)
+	{
+		Modelo aux = controlador.dbCargar(id);
+		this.modelo.setLista(aux.getLista());
+		this.modelo.setNombre(aux.getNombre());
+		vista.repaint();
+	}
 	
 	public Figura getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
 	}
 	
 	public void eVmousePressed(MouseEvent ev,String lenga, String lengb, String lengc) {
+		
 		if(SwingUtilities.isLeftMouseButton(ev)){//Click boton izquierdo selecciona figura
 			before = ev.getPoint();
 			seleccionada=this.getFiguraEn(ev.getPoint());
+			
 		}else if(SwingUtilities.isRightMouseButton(ev)){
 			//click boton derecho añade figura tipo cuadrado
 			if(this.getFiguraEn(ev.getPoint())==null){
+				cont++;		
 				//selecciono un espacio en blanco y se crea la figura Compilador
 			this.anyadirFigura(new Compilador(ev.getPoint(),lenga,lengb,lengc));
+			seleccionada = this.getFiguraEn(ev.getPoint());
+			seleccionada.setSeleccionada(false);
+			seleccionada = null;
 			}else
 			{
 				seleccionada = this.getFiguraEn(ev.getPoint());
@@ -89,6 +105,8 @@ public class Controlador {
 					fg.lenga.setVisible(true);
 					fg.lengb.setVisible(true);
 					fg.lengc.setVisible(true);
+					seleccionada=this.getFiguraEn(ev.getPoint());
+					
 				}
 				if(tipo == 1)
 				{
@@ -101,6 +119,7 @@ public class Controlador {
 					fg.lenga.setVisible(true);
 					fg.lengb.setVisible(true);
 					fg.lengc.setVisible(false);
+					seleccionada=this.getFiguraEn(ev.getPoint());
 				}if(tipo == 2)
 				{
 					//vamos a hacer una Maquina
@@ -112,6 +131,7 @@ public class Controlador {
 					fg.lenga.setVisible(true);
 					fg.lengb.setVisible(false);
 					fg.lengc.setVisible(false);
+					seleccionada=this.getFiguraEn(ev.getPoint());
 				}if(tipo == 3)
 				{
 					//vamos a hacer un Programa
@@ -124,7 +144,11 @@ public class Controlador {
 					fg.lenga.setVisible(true);
 					fg.lengb.setVisible(true);
 					fg.lengc.setVisible(false);
+					seleccionada=this.getFiguraEn(ev.getPoint());
+					
 				}
+				System.out.println(ev.getID());
+				
 			}			
 		}
 		vista.repaint();		
@@ -140,9 +164,11 @@ public class Controlador {
 
 	public void eVmouseReleased (MouseEvent ev) {
 		vista.repaint();
-		if(before!=null){
-		System.out.println("beforeX "+before.getX());
-		System.out.println("beforeY "+before.getY());}
+		int x=0, y=0;
+		
+	
+		
+				
 		if(seleccionada!=null){
 			//Validamos posicion para encajar con los demas
 			ListIterator<Figura> it=modelo.getListado().listIterator();
@@ -152,16 +178,30 @@ public class Controlador {
 		    			tmp.Union(seleccionada,this.before,ev.getPoint());
 		    			this.before = null;
 		    		}
-			    }
-			seleccionada.setSeleccionada(false);
+			    }	
+		    seleccionada.setSeleccionada(false);
 			seleccionada=null;
 		}
+		
+		
 	}
 	public void eVlimpiar()
 	{
 		this.modelo.limpiar();
 		vista.repaint();
 	}
-	
+	public void dbGuardar(String Nombre)
+	{
+		this.modelo.setNombre(Nombre);
+		controlador.Guardar(modelo);
+	}
+	public Vector<String> dbgetListado()
+	{ 		
+		return controlador.dbgetListado();
+	}
+	public void dbBorrar(int id)
+	{
+		controlador.dbBorrar(id);
+	}
 
 }

@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Modelo {
-	
+	private String nombre=null;
 	private List<Figura> listaFiguras;
 	public Modelo(){
 		listaFiguras = new ArrayList<Figura>();
+	}
+	public void setNombre(String Nombre)
+	{
+		this.nombre = Nombre;
+	}
+	public String getNombre()
+	{
+		return this.nombre;
 	}
 	public int getIndex(Point p)
 	{Figura elemento =  null; 
@@ -23,6 +31,14 @@ public class Modelo {
 	public void limpiar()
 	{	System.out.print("limpiar");
 		this.listaFiguras.clear();
+	}
+	public List<Figura> getLista()
+	{
+		return this.listaFiguras;
+	}
+	public void setLista(List<Figura> Lista)
+	{
+		this.listaFiguras = Lista;
 	}
 	public void changeFigure(int index, Figura f)
 	{

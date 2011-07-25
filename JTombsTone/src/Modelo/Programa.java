@@ -6,10 +6,6 @@ import java.awt.Point;
 
 public class Programa extends Figura{
 
-	private Figura izquierda = null;
-	private Figura derecha = null;
-	private Figura interprete = null;
-	
 	public Programa(Point posicion,String lenga, String lengb){
 		this.posicion=posicion;
 		this.seleccionada=false;
@@ -38,7 +34,6 @@ public class Programa extends Figura{
 		g.drawLine(this.getX()-20, this.getY()+20, this.getX()-20, this.getY()-20);
 		g.drawLine(this.getX()+20, this.getY()+20, this.getX()+20, this.getY()-20);
 		g.drawOval(this.getX()-25, this.getY()-60, 50, 50);
-		//TODO cambiar los Strings a variables
 		g.drawString(this.getlengA(), this.getX()-23, this.getY()-32);
 		g.drawString(this.getlengB(), this.getX()-15, this.getY()+7);
 		if(this.getSeleccionada()){
@@ -47,7 +42,6 @@ public class Programa extends Figura{
 			g.drawLine(this.getX()-20, this.getY()+20, this.getX()-20, this.getY()-20);
 			g.drawLine(this.getX()+20, this.getY()+20, this.getX()+20, this.getY()-20);
 			g.drawOval(this.getX()-25, this.getY()-60, 50, 50);
-			//TODO cambiar los Strings a variables
 			g.drawString(this.getlengA(), this.getX()-23, this.getY()-32);
 			g.drawString(this.getlengB(), this.getX()-15, this.getY()+7);
 			
@@ -74,8 +68,11 @@ public class Programa extends Figura{
 					if(f.getlengA().equals(this.getlengB())){
 					f.setPosicion(this.getX()+80,this.getY()+20);
 					}else
-					{ // TODO arreglar la excepcion
+					{ try {
 						f.setPosicion(p);
+					} catch (Exception e) {
+						System.out.print("excepcion detectada "+e.getMessage());
+					}
 					}
 					
 					
@@ -86,9 +83,11 @@ public class Programa extends Figura{
 			if(f.getlengA().equals(this.getlengB()))
 			{
 			f.setPosicion(this.getX(),this.getY()+40);
-			}else{
+			}else{try {
 				f.setPosicion(p);
-				//TODO arreglar la excepcion
+			} catch (Exception e) {
+				System.out.print("excepcion detectada "+e.getMessage());
+			}
 			}
 		}
 		if(f.getTipo() == 2) // es una maquina
@@ -97,8 +96,12 @@ public class Programa extends Figura{
 			{
 			f.setPosicion(this.getX(),this.getY()+40);
 			}else{
-				f.setPosicion(p);
-				//TODO arreglar la excepcion
+				try {
+					f.setPosicion(p);
+				} catch (Exception e) {
+					System.out.print("excepcion detectada "+e.getMessage());
+				}
+				
 			}
 		}
 		if(f.getTipo()==3) // es un programa
